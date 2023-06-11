@@ -23,6 +23,7 @@ $listeArticles = $mysqli->query($listeArticlesRequete);
     <link rel="stylesheet" href="ressources/css/ne-pas-modifier/global.css">
     <link rel="stylesheet" href="ressources/css/ne-pas-modifier/header.css">
     <link rel="stylesheet" href="ressources/css/ne-pas-modifier/accueil.css">
+    <link rel="stylesheet" href="ressources/css/ne-pas-modifier/equipe.css">
 
     <link rel="stylesheet" href="ressources/css/global.css">
     <link rel="stylesheet" href="ressources/css/accueil.css">

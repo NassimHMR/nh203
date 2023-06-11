@@ -1,0 +1,51 @@
+.tout {
+  width: 100%;
+}
+
+.image-article {
+  display: flex;
+  justify-content: center;
+}
+
+.avatar {
+  width: 5%;
+  height: 5%;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+}
+
+.chapo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+  color: #4e4e4e;
+}
+
+.textebox {
+  font-size: 1.5rem;
+  font-weight:lighter;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+  color: #000000;
+  line-height: 1.5;
+}
+
+.auteur {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.header {
+  font-size: 2.25rem;
+  font-weight: bold;
+  margin-bottom: 1.375rem;
+}
+
+.nom-prenom{
+  padding-left: 1rem;
+}

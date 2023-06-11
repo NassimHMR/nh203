@@ -20,20 +20,48 @@ if ($entree_mise_a_jour) {
 }
 
 if ($formulaire_soumis) {
-    // On crée un nouvel auteur
+    $id = $_POST['id'];
+
+    // Vérifier si l'ID saisi correspond à l'ID de l'auteur actuel
+    if ($id != $auteur['id']) {
+        $verifIdCommande = $clientMySQL->prepare('SELECT COUNT(*) FROM auteur WHERE id = :id');
+        $verifIdCommande->execute(['id' => $id]);
+
+        if ($verifIdCommande->fetchColumn() > 0) {
+            // L'ID existe déjà, afficher un message d'erreur
+            echo '<div class="flex justify-center items-center">
+                      <p class="text-red-500 font-bold">Erreur : L\'ID spécifié existe déjà.</p>
+                  </div>';
+            // Vous pouvez choisir de rediriger l'utilisateur vers une autre page ou d'afficher un message d'erreur approprié.
+            exit;
+        }
+    }
+
+    // Continuer avec la mise à jour de l'auteur
     $majAuteurCommande = $clientMySQL->prepare("
         UPDATE auteur
-        SET nom = :nom, prenom = :prenom, lien_avatar = :lien_avatar
-        WHERE id = :id
+        SET id = :id, nom = :nom, prenom = :prenom, lien_avatar = :lien_avatar, lien_twitter = :lien_twitter
+        WHERE id = :ancien_id
     ");
 
     $majAuteurCommande->execute([
+        'id' => $id,
         'nom' => $_POST['nom'],
-        'prenom' => 'A REMPLACER',
-        'lien_avatar' => 'A REMPLACER',
-        'id' => $_POST['id'],
+        'prenom' => $_POST['prenom'],
+        'lien_avatar' => $_POST['lien_avatar'],
+        'lien_twitter' => $_POST['lien_twitter'],
+        'ancien_id' => $auteur['id'], // Utiliser l'ancien ID pour la condition WHERE
     ]);
+
+    // Affichage du message de confirmation de mise à jour de l'auteur
+    echo '<div class="flex justify-center items-center">
+              <p class="text-green-500 font-bold">Édition réussie !</p>
+          </div>';
+    // Redirection vers la page d'accueil d'administration avec un message de validation 
+    header("refresh:3;url=https://nassimhmr.alwaysdata.net/nh203/administration/auteurs/");
+    exit;
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -61,18 +89,26 @@ if ($formulaire_soumis) {
                             <input type="hidden" value="<?php echo $auteur[
                                 'id'
                             ]; ?>" name="id">
+
+                            <div class="col-span-12">
+                                <label for="id" class="block text-lg font-medium text-gray-700">ID</label>
+                                <input type="number" value="<?php echo $auteur['id']; ?>" name="id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" id="id">
+                            </div>
+
                             <div class="col-span-12">
                                 <label for="nom" class="block text-lg font-medium text-gray-700">Nom</label>
                                 <input type="text" value="<?php echo $auteur[
                                     'nom'
                                 ]; ?>" name="nom" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" id="nom">
                             </div>
+
                             <div class="col-span-12">
                                 <label for="prenom" class="block text-lg font-medium text-gray-700">Prénom</label>
                                 <input type="text" value="<?php echo $auteur[
                                     'prenom'
                                 ]; ?>" name="prenom" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" id="prenom">
                             </div>
+
                             <div class="col-span-12">
                                 <label for="avatar" class="block text-lg font-medium text-gray-700">Lien avatar</label>
                                 <input type="url" value="<?php echo $auteur['lien_avatar']; ?>" name="lien_avatar" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" id="avatar">
@@ -80,6 +116,7 @@ if ($formulaire_soumis) {
                                     Mettre l'URL de l'avatar (chemin absolu)
                                 </div>
                             </div>
+                            
                             <div class="col-span-12">
                                 <label for="lien_twitter" class="block text-lg font-medium text-gray-700">Lien twitter</label>
                                 <input type="text" value="<?php echo $auteur[

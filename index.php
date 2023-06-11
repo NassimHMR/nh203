@@ -4,8 +4,9 @@ $page_active = "index";
 
 require_once('./ressources/includes/connexion-bdd.php');
 
-$listeArticlesRequete = "SELECT * FROM article";
-$listeArticles = $mysqli->query($listeArticlesRequete);
+$listeArticlesCommande = $clientMySQL->prepare('SELECT * FROM article');
+$listeArticlesCommande->execute();
+$listeArticles = $listeArticlesCommande->fetchAll();
 
 ?>
 <!DOCTYPE html>
@@ -19,11 +20,11 @@ $listeArticles = $mysqli->query($listeArticlesRequete);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accueil - SAÉ 203</title>
 
+    <link rel="icon" href="ressources/images/favicon-GEC_400x400px.png" type="image/png">
     <link rel="stylesheet" href="ressources/css/ne-pas-modifier/reset.css">
     <link rel="stylesheet" href="ressources/css/ne-pas-modifier/global.css">
     <link rel="stylesheet" href="ressources/css/ne-pas-modifier/header.css">
     <link rel="stylesheet" href="ressources/css/ne-pas-modifier/accueil.css">
-    <link rel="stylesheet" href="ressources/css/ne-pas-modifier/equipe.css">
 
     <link rel="stylesheet" href="ressources/css/global.css">
     <link rel="stylesheet" href="ressources/css/accueil.css">
@@ -40,15 +41,10 @@ $listeArticles = $mysqli->query($listeArticlesRequete);
         <section class="colonne">
             <section class="liste-articles">
                 <?php foreach ($listeArticles as $article) { ?>
-                    <!-- 
-                        Nous avons passé un paramètre d'URL GET nommé "id".
-                        Ainsi quand l'utilisateur va arriver sur la page "article.php",
-                        elle va recevoir la valeur envoyée dans l'URL. 
-                        Vous pourrez récupérer la valeur en php grâce à $_GET["id"]
-                     -->
                     <a href="article.php?id=<?php echo $article["id"]; ?>" class='article'>
                         <figure>
-                            <img src='ressources/images/image-article.png' alt=''>
+                            <img src='ressources/images/mmi.png' alt=''>
+                            
                         </figure>
                         <section class='textes'>
                             <h1 class='titre'><?php echo $article["titre"]; ?></h1>
@@ -62,7 +58,6 @@ $listeArticles = $mysqli->query($listeArticlesRequete);
             </section>
             <a class="jpo-banniere" title="Ouverture dans un nouvel onglet" target="_blank" href="https://www.cyu.fr/salons-journee-portes-ouvertes">
                 <img src="ressources/images/logo-cyu-blanc.png" width="200" class="logo" alt="">
-
                 <section class="textes">
                     <p class="txt-petit">Journée portes <br /> ouvertes</p>
                     <p class="txt-grand">

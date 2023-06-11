@@ -1,32 +1,31 @@
 <?php
-$couleur_bulle_classe = "rose";
-$page_active = "index";
+$couleur_bulle_classe = "gris";
+$page_active = "article";
 
 require_once('./ressources/includes/connexion-bdd.php');
 
+// Vérifier si l'ID de l'article est passé en tant que paramètre dans l'URL
+if (isset($_GET['id'])) {
+    // Récupérer l'ID de l'article depuis l'URL
+    $articleID = $_GET['id'];
 
-$id = 1;
-$sql = "SELECT * FROM article WHERE id=?"; // SQL with parameters
-$stmt = $mysqli->prepare($sql); 
-$stmt->bind_param("i", $id);
-$stmt->execute();
-$result = $stmt->get_result(); // get the mysqli result
-$user = $result->fetch_assoc(); 
-print_r($user);
-// à adapter
-// $requete = 'SELECT * FROM article WHERE id = 1';
-
-// $result = mysqli_query($mysqli, $requete);
-// // $articleCommand = $mysqli->query('SELECT * FROM article WHERE id = ?');
-
-// // $articleId = 1;
-// // $articleCommand->bind_param('i', $articleId);
-// // $articleCommand->execute();
-// print_r(
-//     mysqli_fetch_assoc($result)
-// );
-
+    // à adapter
+    $articleCommand = $clientMySQL->prepare('SELECT article.*, auteur.lien_avatar, auteur.prenom, auteur.nom FROM article
+    JOIN auteur ON article.auteur_id = auteur.id
+    WHERE article.id = :id');
+    $articleCommand->execute([
+        'id' => $articleID,
+    ]);
+    $article = $articleCommand->fetch();
+} else {
+    // ID de l'article non spécifié, rediriger vers une page d'erreur ou une autre page par défaut
+    header("Location: erreur.php");
+    exit();
+}
+// Fermeture de la connexion à la base de données
+$clientMySQL = null;
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -41,28 +40,42 @@ print_r($user);
     <link rel="stylesheet" href="ressources/css/ne-pas-modifier/global.css">
     <link rel="stylesheet" href="ressources/css/ne-pas-modifier/header.css">
     <link rel="stylesheet" href="ressources/css/ne-pas-modifier/accueil.css">
+    <link rel="icon" href="ressources/images/favicon-GEC_400x400px.png" type="image/png">
 
     <link rel="stylesheet" href="ressources/css/global.css">
     <link rel="stylesheet" href="ressources/css/accueil.css">
+    <link rel="stylesheet" href="ressources/css/article.css">
 </head>
 
 <body>
     <section>
         <?php require_once('./ressources/includes/header.php'); ?>
-        <?php
-        // A supprimer si vous n'en avez pas besoin.
-        // Mettre une couleur dédiée pour cette bulle si vous gardez la bulle
-        require_once('./ressources/includes/bulle.php');
-        ?>
+        <?php require_once('./ressources/includes/bulle.php'); ?>
 
-        <!-- Vous allez principalement écrire votre code HTML ci-dessous -->
-        <main class="conteneur-principal conteneur-1280">
-            <h1 class="titre-page"><?php echo $article["titre"]; ?></h1>
-            <p>A vous de faire le design de l'article</p>
-
+        <main class="conteneur-1280">
+            <h1 class="header"><?php echo $article["titre"]; ?></h1>
+            <a <?php echo $article["id"]; ?> class='tout'>
+                <div class='image-article'>
+                    <img class = 'image' src='ressources/images/cergy.jpg' alt='photo_article'>
+                </div>
+                <section>
+                    <p class='chapo'>
+                        <?php echo $article['chapo']; ?>
+                    </p>
+                    <br>
+                    <p class='textebox'>
+                        <?php echo $article["contenu"]; ?>
+                    </p>
+                    <br>
+                    <div class='auteur'>
+                        <img class = "avatar" src='<?php echo $article["lien_avatar"]  ?>' alt='photo'>
+                        <br>
+                        <p class="nom-prenom"><?php echo $article["prenom"]." ".$article["nom"]; ?></p>
+                    </div>
+                </section>
+            </a>
         </main>
         <?php require_once('./ressources/includes/footer.php'); ?>
     </section>
 </body>
-
 </html>

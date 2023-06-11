@@ -14,7 +14,6 @@ if ($formulaire_soumis) {
                 INSERT INTO message(nom, prenom, contenu, email, type, date_creation) 
                 VALUES (:nom, :prenom, :contenu, :email, :type, :date)
             ";
-
         // On prépare la requête
         $messageCommande = $clientMySQL->prepare($insertionMessageRequete);
 
@@ -61,7 +60,8 @@ if ($formulaire_soumis) {
     <link rel="stylesheet" href="ressources/css/ne-pas-modifier/reset.css">
     <link rel="stylesheet" href="ressources/css/ne-pas-modifier/global.css">
     <link rel="stylesheet" href="ressources/css/ne-pas-modifier/header.css">
-
+    <link rel="icon" href="ressources/images/favicon-GEC_400x400px.png" type="image/png">
+    
     <link rel="stylesheet" href="ressources/css/global.css">
     <link rel="stylesheet" href="ressources/css/contact.css">
 </head>
@@ -87,7 +87,6 @@ if ($formulaire_soumis) {
         ?>
         <?php require_once('./ressources/includes/bulle.php'); ?>
 
-        <!-- Vous allez principalement écrire votre code HTML ci-dessous -->
         <main class="conteneur-principal conteneur-1280">
             <h1 class="titre-page">Plus d'infos sur la formation ? <br /> Contactez-nous !</h1>
 

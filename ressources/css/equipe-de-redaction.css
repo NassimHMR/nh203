@@ -1,0 +1,27 @@
+.liste-videos {
+    display: flex;
+    gap: 3.5rem 2rem;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.liste-videos .video-conteneur {
+    width: 48%;
+    transition: transform 0.9s;
+}
+
+.liste-videos .video-yt {
+    width: 100%;
+}
+
+.liste-videos .titre {
+    color: #707070;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 0.8rem;
+    margin-top: 1rem;
+}
+
+.liste-videos .video-conteneur:hover {
+    transform: scale(1.09);
+}

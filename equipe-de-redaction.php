@@ -1,5 +1,5 @@
 <?php
-$couleur_bulle_classe = "bleu";
+$couleur_bulle_classe = "jaune";
 $page_active = "equipe de redaction";
 
 require_once('./ressources/includes/connexion-bdd.php');
@@ -26,7 +26,7 @@ $listeAuteurs = $listeAuteursCommande->fetchAll();
     <link rel="icon" href="ressources/images/favicon-GEC_400x400px.png" type="image/png">
     
     <link rel="stylesheet" href="ressources/css/global.css">
-    <link rel="stylesheet" href="ressources/css/equipe-de-redaction">
+    <link rel="stylesheet" href="ressources/css/equipe-de-redaction.css">
 </head>
 
 <body>
@@ -35,13 +35,14 @@ $listeAuteurs = $listeAuteursCommande->fetchAll();
         <?php require_once('./ressources/includes/bulle.php');?>
         <main class="conteneur-principal conteneur-1280">
             <!-- Vous allez principalement écrire votre code HTML dans cette balise -->
-            <h1 class="titre-page">Équipe de rédaction</h1>
+            <h1 class="titre-page">Équipee de rédaction</h1>
             <ul class="liste-videos">
                 <?php foreach ($listeAuteurs as $auteur) { ?>
-                    <a class="video-conteneur">
-                        <img class="video-yt" src="<?php echo $auteur["lien_avatar"]?>">
-                        <h2 class="titre"><?php echo $auteur["prenom"]?> <?php echo $auteur["nom"]?></h2>
-                <?php } ?>
+    <a class="video-conteneur" href="<?php echo $auteur["lien_twitter"]; ?>">
+        <img class="video-yt" src="<?php echo $auteur["lien_avatar"]; ?>">
+        <h2 class="titre"><?php echo $auteur["prenom"] . ' ' . $auteur["nom"]; ?></h2>
+    </a>
+<?php } ?>
             </ul>
         </main>
         <?php require_once('./ressources/includes/footer.php'); ?>

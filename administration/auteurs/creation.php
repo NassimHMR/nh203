@@ -35,7 +35,7 @@ if ($formulaire_soumis) {
         ]);
         // Affichage du message de confirmation de création d'auteur
         echo'<div class="flex justify-center items-center">
-                <p class="text-green-500 font-bold">Création réussie !</p>
+                <p class="text-green-500 font-bold">Vous avez créé un nouvel article !</p>
              </div>';
 
         // Redirection vers la liste des auteurs après 3 secondes

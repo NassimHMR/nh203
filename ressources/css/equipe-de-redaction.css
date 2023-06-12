@@ -1,27 +1,39 @@
 .liste-videos {
     display: flex;
-    gap: 3.5rem 2rem;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 3.5rem 2rem;
 }
 
-.liste-videos .video-conteneur {
-    width: 48%;
-    transition: transform 0.9s;
-}
 
 .liste-videos .video-yt {
     width: 100%;
+    height: auto;
+    object-fit: cover;
 }
 
 .liste-videos .titre {
-    color: #707070;
+    color: #000;
     font-size: 1.5rem;
     text-align: center;
-    margin-bottom: 0.8rem;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
+}
+
+.liste-videos .video-conteneur {
+    width: calc(50% - 2rem);
+    position: relative;
+    transition: transform 0.3s ease;
 }
 
 .liste-videos .video-conteneur:hover {
-    transform: scale(1.09);
+    transform: scale(1.1);
+}
+
+.liste-videos .video-conteneur a {
+    text-decoration: none;
+}
+
+.liste-videos .video-conteneur a:hover {
+    opacity: 0.8;
 }

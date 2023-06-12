@@ -1,17 +1,9 @@
-/* 
-    Le code ci-dessous permet d'effectuer une transition lors clic 
-    mais ceci n'est pas optimal pour l'accessibilité...
-*/
+
 html {
   scroll-behavior: smooth;
 }
 
-/* 
-    ...alors on utilise les lignes de code suivantes pour désactiver 
-    les animations pour les utilisateurs
-    qui n'en souhaitent pas, 
-    leur désactivation est faite au niveau du système d'exploitation 
-*/
+
 @media (prefers-reduced-motion: reduce) {
   *,
   ::before,

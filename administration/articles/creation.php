@@ -50,7 +50,7 @@ if ($formulaire_soumis) {
 
         // Display the confirmation message
         echo '<div class="flex justify-center items-center">
-                <p class="text-green-500 font-bold">Création réussie !</p>
+                <p class="text-green-500 font-bold"> Vous avez créé un nouvel article !</p>
               </div>';
         echo '<div class="flex justify-center items-center">
                 <p>Auteur: ' . $auteur['auteur_nom'] . '</p>

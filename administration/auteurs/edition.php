@@ -55,7 +55,7 @@ if ($formulaire_soumis) {
 
     // Affichage du message de confirmation de mise à jour de l'auteur
     echo '<div class="flex justify-center items-center">
-              <p class="text-green-500 font-bold">Édition réussie !</p>
+              <p class="text-green-500 font-bold">Vous avez bien éditez l auteur ! </p>
           </div>';
     // Redirection vers la page d'accueil d'administration avec un message de validation 
     header("refresh:3;url=https://nassimhmr.alwaysdata.net/nh203/administration/auteurs/");

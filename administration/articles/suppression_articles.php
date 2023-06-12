@@ -70,7 +70,7 @@ if(isset($_GET["id"])){
         </style>
 
         <form method="POST" action="" class="confirmation-form ">
-            <p>Êtes-vous sûr de vouloir supprimer cet auteur ?</p>
+            <p>Êtes-vous sûr de vouloir supprimer cet article ?</p>
             <input type="hidden" name="confirmation" value="yes">
             <input type="hidden" name="id" value="' . $id . '">
             <div class="btn-wrapper">
